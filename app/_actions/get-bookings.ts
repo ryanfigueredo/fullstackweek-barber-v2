@@ -1,17 +1,20 @@
 "use server"
 
-import { revalidatePath } from "next/cache"
+import { endOfDay, startOfDay } from "date-fns"
 import { db } from "../_lib/prisma"
 
-interface CreateBookingParams {
-  userId: string
+interface GetBookingsProps {
   serviceId: string
   date: Date
 }
 
-export const createBooking = async (params: CreateBookingParams) => {
-  await db.booking.create({
-    data: params,
+export const getBookings = ({ date }: GetBookingsProps) => {
+  return db.booking.findMany({
+    where: {
+      date: {
+        lte: endOfDay(date),
+        gte: startOfDay(date),
+      },
+    },
   })
-  revalidatePath("/barbershops/[id]")
 }
