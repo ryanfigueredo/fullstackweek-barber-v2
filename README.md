@@ -16,4 +16,5 @@ Este evento é uma oportunidade incrível para desenvolvedores de todos os níve
 - **TypeScript**
 - **JavaScript**
 
-- Feito com 💘 por Ryan Figueredo.
+
+Feito com 💘 por Ryan Figueredo.
