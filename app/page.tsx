@@ -7,6 +7,7 @@ import { quickSearchOptions } from "./_constants/search"
 import BookingItem from "./_components/booking-item"
 import Search from "./_components/search"
 import Link from "next/link"
+import { getConfirmedBookings } from "./_data/get-confirmed-bookings"
 
 const Home = async () => {
   const barbershops = await db.barbershop.findMany({})
@@ -15,6 +16,8 @@ const Home = async () => {
       name: "desc",
     },
   })
+  const confirmedBookings = await getConfirmedBookings()
+  const nextBooking = confirmedBookings[0]
 
   return (
     <div>
@@ -63,7 +66,7 @@ const Home = async () => {
         </div>
 
         {/* AGENDAMENTO */}
-        <BookingItem />
+        {nextBooking && <BookingItem booking={nextBooking} />}
 
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
           Recomendados
